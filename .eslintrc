@@ -1,0 +1,18 @@
+{
+  "root": true,
+  "rules": {
+    "no-console": "error",
+    "react-hooks/exhaustive-deps": "error",
+    "multiline-comment-style": "off",
+    "no-unreachable": "error",
+    "react/react-in-jsx-scope": "off",
+    "jest/lowercase-name": "off",
+    "require-await": "error",
+    "testing-library/no-node-access": "warn",
+    "no-use-before-define": "warn"
+  },
+  "env": {
+    "es6": true
+  },
+  "globals": {}
+}
