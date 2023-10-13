@@ -29,11 +29,13 @@ app.use((error: HttpError, req: Request, res: Response, next: NextFunction) => {
   res.json({message: error.message || 'An unknown error occurred'});
 });
 
+//TODO: Important! Transfer this string to env variables and change pass on mongodb to acc before public opening repository.
+
 mongoose
-    .connect('mongodb+srv://admin:admin159357@cluster0.gmb69ng.mongodb.net/')
-    .then(() => {
-        app.listen(process.env.PORT || 5001);
-    })
-    .catch(err => {
-        console.log(err)
-    });
+  .connect('mongodb+srv://admin:admin159357@cluster0.gmb69ng.mongodb.net/')
+  .then(() => {
+    app.listen(process.env.PORT || 5001);
+  })
+  .catch(err => {
+    console.log(err);
+  });
