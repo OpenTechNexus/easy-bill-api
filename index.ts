@@ -1,6 +1,5 @@
 import express from 'express';
 import env from './environment.config';
-import login from './routes/login';
 import {Request, Response, NextFunction} from 'express';
 import HttpError from './models/http-errors.ts';
 import usersRoutes from './routes/users-routes.ts';
