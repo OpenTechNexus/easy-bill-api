@@ -29,8 +29,6 @@ app.use((error: HttpError, req: Request, res: Response, next: NextFunction) => {
   res.json({message: error.message || 'An unknown error occurred'});
 });
 
-//TODO: Important! Transfer this string to env variables and change pass on mongodb to acc before public opening repository.
-
 mongoose
   .connect(env.CONNECTOR)
   .then(() => {
