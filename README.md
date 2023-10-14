@@ -9,15 +9,16 @@ This repository contains the backend logic and endpoints necessary to manage fin
 ## API Endpoints
 
 - **Authentication Endpoints**:
+
   - `POST /api/users/signin`: Authenticate a user and obtain an access token.
   - `POST /api/users/signup`: Register a new user.
 
 - **Account Endpoints**:
-  - `GET /accounts`: Retrieve a list of user accounts.
-  - `GET /accounts/{id}`: Retrieve information about a specific account.
-  - `POST /accounts`: Create a new account.
-  - `PUT /accounts/{id}`: Update account information.
-  - `DELETE /accounts/{id}`: Delete an account.
+
+  - `GET /api/users`: Retrieve a list of user accounts.
+  - `GET /api/users/{id}`: Retrieve information about a specific account.
+  - `PUT /api/users/{id}`: Update account information.
+  - `DELETE /api/users/{id}`: Delete an account.
 
 - **Financial Operations Endpoints**:
   - `POST /operations/income`: Add a new income entry.
