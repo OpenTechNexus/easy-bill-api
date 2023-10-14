@@ -4,7 +4,6 @@ import {Request, Response, NextFunction} from 'express';
 import HttpError from './models/http-errors.ts';
 import usersRoutes from './routes/users-routes.ts';
 import mongoose from 'mongoose';
-require('dotenv').config();
 
 const app = express();
 
@@ -24,7 +23,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   next(error);
 });
 
-app.use((error: HttpError, req: Request, res: Response, next: NextFunction) => {
+app.use((error: HttpError, req: Request, res: Response) => {
   res.status(error.code || 500);
   res.json({message: error.message || 'An unknown error occurred'});
 });
@@ -35,5 +34,6 @@ mongoose
     app.listen(process.env.PORT || 5001);
   })
   .catch(err => {
+    // eslint-disable-next-line
     console.log(err);
   });
