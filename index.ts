@@ -16,16 +16,20 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
-app.use('/api/users', usersRoutes);
+app.use('/users', usersRoutes);
 
-app.use((req: Request, res: Response, next: NextFunction) => {
+app.use((req: Request, res: Response) => {
   const error = new HttpError('Not Found this route', 404);
-  next(error);
+  res.status(error.code || 500);
+  res.json({message: error.message});
 });
 
-app.use((error: HttpError, req: Request, res: Response) => {
+app.use((error: HttpError, req: Request, res: Response, next: NextFunction) => {
+  if (res.headersSent) {
+    return next(error);
+  }
   res.status(error.code || 500);
-  res.json({message: error.message || 'An unknown error occurred'});
+  res.json({message: error.message || 'Unknown error'});
 });
 
 mongoose

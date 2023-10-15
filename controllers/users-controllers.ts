@@ -3,7 +3,15 @@ import HttpError from '../models/http-errors';
 import {validationResult} from 'express-validator';
 import User, {IUser} from '../schemas/user';
 import bcrypt from 'bcryptjs';
-import {GetUsersResponse, CreateUserRequestType, ResponceUserType} from '../types';
+import jwt from 'jsonwebtoken';
+import env from '../environment.config';
+import {
+  GetUsersResponse,
+  CreateUserRequestType,
+  ResponceUserType,
+  RequestSignInType,
+  ResponseSignInType,
+} from '../types';
 
 const hashPassword = async (password: string): Promise<string> => {
   try {
@@ -75,4 +83,56 @@ export const signUp = async (
   } catch (error) {
     return next(error);
   }
+};
+
+export const signIn = async (
+  req: RequestSignInType,
+  res: Response<ResponseSignInType>,
+  next: NextFunction,
+) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return next(new HttpError('Invalid inputs passed, please check your data', 422));
+  }
+  const {email, password} = req.body;
+
+  let existingUser;
+
+  try {
+    existingUser = await User.findOne({email: email});
+  } catch (err) {
+    const error = new HttpError('Sign in failed', 500);
+    return next(error);
+  }
+
+  if (!existingUser) {
+    const error = new HttpError('Invalid email or password', 401);
+    return next(error);
+  }
+
+  let isValidPassword = false;
+
+  try {
+    isValidPassword = await bcrypt.compare(password, existingUser.password);
+  } catch (err) {
+    const error = new HttpError('Invalid sign in, try again', 500);
+    return next(error);
+  }
+
+  if (!isValidPassword) {
+    const error = new HttpError('Invalid email or password', 401);
+    return next(error);
+  }
+
+  let token;
+  try {
+    token = jwt.sign({userId: existingUser.id, email: existingUser.email}, env.JWTKEY, {
+      expiresIn: '1h',
+    });
+  } catch (err) {
+    const error = new HttpError('Signin failed, please try again', 500);
+    return next(error);
+  }
+  res.json({resultCode: 1, isAuth: true, userName: existingUser.name, token: token});
 };
