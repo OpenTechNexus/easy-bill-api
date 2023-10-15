@@ -6,6 +6,17 @@ export type UserType = {
   password: string;
 };
 
+export type RequestSignInType = {
+  body: Omit<UserType, 'name'>;
+};
+
+export type ResponseSignInType = {
+  resultCode: number;
+  isAuth: boolean;
+  userName: string;
+  token: string;
+};
+
 export type ResponceUserType = {
   name: string;
   id: string;
