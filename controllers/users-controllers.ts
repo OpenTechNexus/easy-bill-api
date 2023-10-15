@@ -4,6 +4,7 @@ import {validationResult} from 'express-validator';
 import User, {IUser} from '../schemas/user';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import env from '../environment.config';
 import {
   GetUsersResponse,
   CreateUserRequestType,
@@ -126,7 +127,7 @@ export const signIn = async (
 
   let token;
   try {
-    token = jwt.sign({userId: existingUser.id, email: existingUser.email}, 'd06x03mf7ej9', {
+    token = jwt.sign({userId: existingUser.id, email: existingUser.email}, env.JWTKEY, {
       expiresIn: '1h',
     });
   } catch (err) {
