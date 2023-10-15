@@ -1,5 +1,5 @@
 import express from 'express';
-import {signUp, getUsers} from '../controllers/users-controllers';
+import {signUp, signIn, getUsers} from '../controllers/users-controllers';
 import {check} from 'express-validator';
 
 const router = express.Router();
@@ -14,6 +14,12 @@ router.post(
     check('password').isLength({min: 6}),
   ],
   signUp,
+);
+
+router.post(
+  '/signin',
+  [check('email').not().isEmpty(), check('password').not().isEmpty().isLength({min: 6})],
+  signIn,
 );
 
 export default router;
