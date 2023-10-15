@@ -102,7 +102,7 @@ export const signIn = async (
   try {
     existingUser = await User.findOne({email: email});
   } catch (err) {
-    const error = new HttpError('SignIn failed', 500);
+    const error = new HttpError('Sign in failed', 500);
     return next(error);
   }
 
