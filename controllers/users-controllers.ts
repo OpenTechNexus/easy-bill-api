@@ -13,7 +13,7 @@ import {
   ResponseSignInType,
 } from '../types';
 
-const hashPassword = async (password: string): Promise<string> => {
+export const hashPassword = async (password: string): Promise<string> => {
   try {
     const hashedPassword = await bcrypt.hash(password, 12);
     return hashedPassword;
@@ -22,7 +22,7 @@ const hashPassword = async (password: string): Promise<string> => {
   }
 };
 
-const createUser = async (name: string, email: string, hashedPassword: string): Promise<IUser> => {
+export const createUser = async (name: string, email: string, hashedPassword: string): Promise<IUser> => {
   const user = new User({
     name,
     email,
