@@ -1,41 +1,18 @@
 import {Request, Response, NextFunction} from 'express';
 import HttpError from '../models/http-errors';
 import {validationResult} from 'express-validator';
-import User, {IUser} from '../schemas/user';
+import User from '../schemas/user';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import env from '../environment.config';
+import env from '../../environment.config';
+import {hashPassword, createUser} from '../helpers'
 import {
   GetUsersResponse,
   CreateUserRequestType,
   ResponceUserType,
   RequestSignInType,
   ResponseSignInType,
-} from '../types';
-
-const hashPassword = async (password: string): Promise<string> => {
-  try {
-    const hashedPassword = await bcrypt.hash(password, 12);
-    return hashedPassword;
-  } catch (err) {
-    throw new HttpError('Could not hash the password', 500);
-  }
-};
-
-const createUser = async (name: string, email: string, hashedPassword: string): Promise<IUser> => {
-  const user = new User({
-    name,
-    email,
-    password: hashedPassword,
-  });
-
-  try {
-    await user.save();
-    return user;
-  } catch (err) {
-    throw new HttpError('User not created', 500);
-  }
-};
+} from '../../types';
 
 export const getUsers = async (
   req: Request,
