@@ -1,6 +1,4 @@
-import {hashPassword} from './users-controllers';
-
-jest.mock('../schemas/user');
+import {hashPassword} from './hash-password';
 
 describe('hashPassword', () => {
   it('should hash the password', async () => {
@@ -10,4 +8,3 @@ describe('hashPassword', () => {
     expect(hashedPassword).not.toBe(password);
   });
 });
-
