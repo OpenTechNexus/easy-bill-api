@@ -4,7 +4,7 @@ import {validationResult} from 'express-validator';
 import User from '../schemas/user';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import env from '../environment.config';
+import env from '../../environment.config';
 import {hashPassword, createUser} from '../helpers'
 import {
   GetUsersResponse,
@@ -12,7 +12,7 @@ import {
   ResponceUserType,
   RequestSignInType,
   ResponseSignInType,
-} from '../types';
+} from '../../types';
 
 export const getUsers = async (
   req: Request,
