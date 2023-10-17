@@ -17,17 +17,14 @@ export type ResponseSignInType = {
   token: string;
 };
 
-export type ResponceUserType = {
-  name: string;
+export type ResponseUserType = UserType & {
   id: string;
   _id: string;
   _v: number;
-  email: string;
-  password: string;
 };
 
 export type GetUsersResponse = {
-  users: Omit<ResponceUserType, 'password'>[];
+  users: Omit<ResponseUserType, 'password'>[];
 };
 
 export type CreateUserRequestType = Request & {
