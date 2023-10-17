@@ -1,8 +1,8 @@
 import express from 'express';
 import env from './environment.config';
 import {Request, Response, NextFunction} from 'express';
-import HttpError from './models/http-errors.ts';
-import usersRoutes from './routes/users-routes.ts';
+import HttpError from './src/models/http-errors.ts';
+import usersRoutes from './src/routes/users-routes.ts';
 import mongoose from 'mongoose';
 
 const app = express();
@@ -16,16 +16,20 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
-app.use('/api/users', usersRoutes);
+app.use('/users', usersRoutes);
 
-app.use((req: Request, res: Response, next: NextFunction) => {
+app.use((req: Request, res: Response) => {
   const error = new HttpError('Not Found this route', 404);
-  next(error);
+  res.status(error.code || 500);
+  res.json({message: error.message});
 });
 
-app.use((error: HttpError, req: Request, res: Response) => {
+app.use((error: HttpError, req: Request, res: Response, next: NextFunction) => {
+  if (res.headersSent) {
+    return next(error);
+  }
   res.status(error.code || 500);
-  res.json({message: error.message || 'An unknown error occurred'});
+  res.json({message: error.message || 'Unknown error'});
 });
 
 mongoose

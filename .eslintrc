@@ -15,5 +15,6 @@
   "env": {
     "es6": true
   },
-  "globals": {}
+  "globals": {},
+  "ignorePatterns": ["node_modules/", "commitlint.config.js", "jest.config.js"]
 }
