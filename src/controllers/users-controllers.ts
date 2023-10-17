@@ -9,10 +9,10 @@ import {hashPassword, createUser} from '../helpers'
 import {
   GetUsersResponse,
   CreateUserRequestType,
-  ResponceUserType,
+  ResponseUserType,
   RequestSignInType,
   ResponseSignInType,
-} from '../../types';
+} from '../types';
 
 export const getUsers = async (
   req: Request,
@@ -30,7 +30,7 @@ export const getUsers = async (
 
 export const signUp = async (
   req: CreateUserRequestType,
-  res: Response<{user: ResponceUserType}>,
+  res: Response<{user: ResponseUserType}>,
   next: NextFunction,
 ) => {
   try {
