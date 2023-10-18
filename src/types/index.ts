@@ -30,3 +30,12 @@ export type GetUsersResponse = {
 export type CreateUserRequestType = Request & {
   body: UserType;
 };
+
+export type CheckAuthRequestType = Request & {
+  headers: {
+    authorization?: string;
+  };
+  userData?: {
+    userId: string;
+  };
+};
