@@ -11,8 +11,7 @@ export type RequestSignInType = {
 };
 
 export type ResponseSignInType = {
-  resultCode: number;
-  isAuth: boolean;
+  id: string,
   userName: string;
   token: string;
 };
@@ -29,4 +28,13 @@ export type GetUsersResponse = {
 
 export type CreateUserRequestType = Request & {
   body: UserType;
+};
+
+export type CheckAuthRequestType = Request & {
+  headers: {
+    authorization?: string;
+  };
+  userData?: {
+    userId: string;
+  };
 };
