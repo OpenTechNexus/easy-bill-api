@@ -111,5 +111,5 @@ export const signIn = async (
     const error = new HttpError('Signin failed, please try again', 500);
     return next(error);
   }
-  res.json({resultCode: 1, isAuth: true, userName: existingUser.name, token: token});
+  res.json({id: existingUser.id, userName: existingUser.name, token: token});
 };
