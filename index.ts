@@ -4,7 +4,7 @@ import {Request, Response, NextFunction} from 'express';
 import HttpError from './src/errorHelpers/http-errors';
 import usersRoutes from './src/routes/users-routes.ts';
 import mongoose from 'mongoose';
-import { IHttpError } from './src/types/index.ts';
+import {IHttpError} from './src/types/index.ts';
 
 const app = express();
 
