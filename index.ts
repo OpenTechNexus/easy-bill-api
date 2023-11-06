@@ -37,9 +37,9 @@ app.use((error: IHttpError, req: Request, res: Response, next: NextFunction) => 
 });
 
 mongoose
-  .connect('mongodb+srv://admin:admin159357@cluster0.gmb69ng.mongodb.net/')
+  .connect(env.CONNECTOR)
   .then(() => {
-    app.listen(process.env.PORT || 5001);
+    app.listen(env.PORT || 5001);
   })
   .catch(err => {
     // eslint-disable-next-line
