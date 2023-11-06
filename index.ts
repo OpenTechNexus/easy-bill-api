@@ -1,9 +1,10 @@
 import express from 'express';
 import env from './environment.config';
 import {Request, Response, NextFunction} from 'express';
-import HttpError from './src/models/http-errors.ts';
+import HttpError from './src/errorHelpers/http-errors';
 import usersRoutes from './src/routes/users-routes.ts';
 import mongoose from 'mongoose';
+import { IHttpError } from './src/types/index.ts';
 
 const app = express();
 
@@ -22,12 +23,12 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 app.use('/users', usersRoutes);
 
 app.use((req: Request, res: Response) => {
-  const error = new HttpError('Not Found this route', 404);
+  const error = HttpError('Not Found this route', 404);
   res.status(error.code || 500);
   res.json({message: error.message});
 });
 
-app.use((error: HttpError, req: Request, res: Response, next: NextFunction) => {
+app.use((error: IHttpError, req: Request, res: Response, next: NextFunction) => {
   if (res.headersSent) {
     return next(error);
   }
@@ -36,7 +37,7 @@ app.use((error: HttpError, req: Request, res: Response, next: NextFunction) => {
 });
 
 mongoose
-  .connect(env.CONNECTOR)
+  .connect('mongodb+srv://admin:admin159357@cluster0.gmb69ng.mongodb.net/')
   .then(() => {
     app.listen(process.env.PORT || 5001);
   })

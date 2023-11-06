@@ -1,5 +1,5 @@
 import {Request, Response, NextFunction} from 'express';
-import HttpError from '../models/http-errors';
+import HttpError from '../errorHelpers/http-errors';
 import {validationResult} from 'express-validator';
 import User from '../schemas/user';
 import bcrypt from 'bcryptjs';
@@ -23,7 +23,7 @@ export const getUsers = async (
     const users = await User.find({}, '-password');
     res.json({users: users.map(user => user.toObject({getters: true}))});
   } catch (err) {
-    const error = new HttpError('Fetching users failed.', 500);
+    const error = HttpError('Fetching users failed.', 500);
     return next(error);
   }
 };
@@ -37,7 +37,7 @@ export const signUp = async (
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      return next(new HttpError('Invalid inputs passed, please check your data', 422));
+      return next(HttpError('Invalid inputs passed, please check your data', 422));
     }
 
     const {name, email, password} = req.body;
@@ -47,7 +47,7 @@ export const signUp = async (
     try {
       existingUser = await User.findOne({email});
       if (existingUser) {
-        return next(new HttpError('User exists already, please login instead', 422));
+        return next(HttpError('User exists already, please login instead', 422));
       }
 
       const hashedPassword = await hashPassword(password);
@@ -55,7 +55,7 @@ export const signUp = async (
 
       res.status(201).json({user: createdUser.toObject({getters: true})});
     } catch (err) {
-      return next(new HttpError('Signing up failed, please try again later', 500));
+      return next(HttpError('Signing up failed, please try again later', 500));
     }
   } catch (error) {
     return next(error);
@@ -70,7 +70,7 @@ export const signIn = async (
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    return next(new HttpError('Invalid inputs passed, please check your data', 422));
+    return next(HttpError('Invalid inputs passed, please check your data', 422));
   }
   const {email, password} = req.body;
 
@@ -79,12 +79,12 @@ export const signIn = async (
   try {
     existingUser = await User.findOne({email: email});
   } catch (err) {
-    const error = new HttpError('Sign in failed', 500);
+    const error = HttpError('Sign in failed', 500);
     return next(error);
   }
 
   if (!existingUser) {
-    const error = new HttpError('Invalid email or password', 401);
+    const error = HttpError('Invalid email or password', 401);
     return next(error);
   }
 
@@ -93,12 +93,12 @@ export const signIn = async (
   try {
     isValidPassword = await bcrypt.compare(password, existingUser.password);
   } catch (err) {
-    const error = new HttpError('Invalid sign in, try again', 500);
+    const error = HttpError('Invalid sign in, try again', 500);
     return next(error);
   }
 
   if (!isValidPassword) {
-    const error = new HttpError('Invalid email or password', 401);
+    const error = HttpError('Invalid email or password', 401);
     return next(error);
   }
 
@@ -108,7 +108,7 @@ export const signIn = async (
       expiresIn: '1h',
     });
   } catch (err) {
-    const error = new HttpError('Signin failed, please try again', 500);
+    const error = HttpError('Signin failed, please try again', 500);
     return next(error);
   }
   res.json({id: existingUser.id, userName: existingUser.name, token: token});

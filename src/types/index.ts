@@ -11,7 +11,7 @@ export type RequestSignInType = {
 };
 
 export type ResponseSignInType = {
-  id: string,
+  id: string;
   userName: string;
   token: string;
 };
@@ -38,3 +38,5 @@ export type CheckAuthRequestType = Request & {
     userId: string;
   };
 };
+
+export type IHttpError = Error & {code: number};

@@ -1,4 +1,4 @@
-import HttpError from '../models/http-errors';
+import HttpError from '../errorHelpers/http-errors';
 import User, {IUser} from '../schemas/user';
 
 export const createUser = async (
@@ -16,6 +16,6 @@ export const createUser = async (
     await user.save();
     return user;
   } catch (err) {
-    throw new HttpError('User not created', 500);
+    throw HttpError('User not created', 500);
   }
 };
