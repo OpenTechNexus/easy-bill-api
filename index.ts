@@ -38,7 +38,7 @@ app.use((error: HttpError, req: Request, res: Response, next: NextFunction) => {
 mongoose
   .connect(env.CONNECTOR)
   .then(() => {
-    app.listen(process.env.PORT || 5001);
+    app.listen(env.PORT || 5001);
   })
   .catch(err => {
     // eslint-disable-next-line

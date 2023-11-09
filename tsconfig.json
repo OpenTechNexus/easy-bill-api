@@ -1,9 +1,12 @@
 {
   "compilerOptions": {
     "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "module": "CommonJS",
+    "target": "ESNext",
+    "sourceMap": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
     "strict": true,
     "allowImportingTsExtensions": true,
     "forceConsistentCasingInFileNames": true,
@@ -14,5 +17,5 @@
     "noEmit": true
   },
   "exclude": ["node_modules"],
-  "include": ["index.ts"]
+  "include": ["index.ts", "src/**/*.ts"]
 }
