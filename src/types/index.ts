@@ -11,7 +11,7 @@ export type RequestSignInType = {
 };
 
 export type ResponseSignInType = {
-  id: string,
+  id: string;
   userName: string;
   token: string;
 };

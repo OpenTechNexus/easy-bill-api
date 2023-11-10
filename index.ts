@@ -1,8 +1,8 @@
 import express from 'express';
 import env from './environment.config';
 import {Request, Response, NextFunction} from 'express';
-import HttpError from './src/models/http-errors.ts';
-import usersRoutes from './src/routes/users-routes.ts';
+import HttpError from './src/models/http-errors';
+import usersRoutes from './src/routes/users-routes';
 import mongoose from 'mongoose';
 
 const app = express();

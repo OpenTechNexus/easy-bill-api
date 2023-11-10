@@ -5,7 +5,7 @@ import User from '../schemas/user';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import env from '../../environment.config';
-import {hashPassword, createUser} from '../helpers'
+import {hashPassword, createUser} from '../helpers';
 import {
   GetUsersResponse,
   CreateUserRequestType,
