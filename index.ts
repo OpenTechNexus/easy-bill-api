@@ -1,4 +1,5 @@
-import express from 'express';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const express = require('express');
 import env from './environment.config';
 import {Request, Response, NextFunction} from 'express';
 import HttpError from './src/models/http-errors';
