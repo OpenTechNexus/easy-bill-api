@@ -1,8 +1,8 @@
 import express from 'express';
 import env from './environment.config';
 import {Request, Response, NextFunction} from 'express';
-import HttpError from './src/models/http-errors.ts';
-import usersRoutes from './src/routes/users-routes.ts';
+import HttpError from './src/models/http-errors';
+import usersRoutes from './src/routes/users-routes';
 import mongoose from 'mongoose';
 
 const app = express();
@@ -38,7 +38,7 @@ app.use((error: HttpError, req: Request, res: Response, next: NextFunction) => {
 mongoose
   .connect(env.CONNECTOR)
   .then(() => {
-    app.listen(process.env.PORT || 5001);
+    app.listen(env.PORT || 5001);
   })
   .catch(err => {
     // eslint-disable-next-line

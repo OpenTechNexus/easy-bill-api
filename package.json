@@ -1,12 +1,14 @@
 {
   "name": "easy-bill-api",
-  "version": "0.0.1",
+  "version": "0.0.6",
   "license": "MIT",
   "private": true,
   "author": "Taras Dyksan",
   "description": "",
   "main": "index.ts",
   "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
     "dev": "nodemon index.ts",
     "type-check": "tsc --noEmit",
     "lint": "eslint . --fix --ext .js,.json,.ts --quiet",
@@ -28,10 +30,14 @@
     "uuid": "9.0.1"
   },
   "devDependencies": {
+    "@babel/core": "7.23.3",
+    "@babel/preset-env": "7.23.3",
+    "@babel/preset-typescript": "7.23.3",
+    "@babel/register": "7.22.15",
     "@commitlint/cli": "17.8.0",
     "@commitlint/config-conventional": "17.8.0",
     "@types/bcryptjs": "2.4.4",
-    "@types/express": "4.17.18",
+    "@types/express": "4.17.21",
     "@types/jest": "29.5.5",
     "@types/jsonwebtoken": "9.0.3",
     "@types/mongoose-unique-validator": "1.0.7",
