@@ -1,12 +1,14 @@
 {
   "name": "easy-bill-api",
-  "version": "0.0.1",
+  "version": "0.0.6",
   "license": "MIT",
   "private": true,
   "author": "Taras Dyksan",
   "description": "",
   "main": "index.ts",
   "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
     "dev": "nodemon index.ts",
     "type-check": "tsc --noEmit",
     "lint": "eslint . --fix --ext .js,.json,.ts --quiet",
